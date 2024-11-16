@@ -1,18 +1,10 @@
 <template>
-  <div class="calculadora">
-    <div class="header">
-      <h1 class="header__title">Qual sua meta de investimento?</h1>
-    </div>
-
-    <div class="body">
-      <Form />
-    </div>
-    <div class="footer"></div>
-  </div>
+  <h1>Calculadora de investimentos</h1>
+  <Form />
 </template>
 
 <script setup lang="ts">
-  import Form from '@/components/Calculadora/Form/Form.vue'
+  import Form from '@/components/Form/Form.vue'
 </script>
 
 <style scoped lang="scss">
