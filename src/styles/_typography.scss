@@ -1,36 +1,36 @@
 // @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap');
 
 * {
-  font-family: 'SF-Pro-Text-Regular', sans-serif;
+  font-family: 'SF-Pro-Display-Regular', sans-serif;
 }
 
 @font-face {
-  font-family: 'SF-Pro-Text-Thin';
-  src: url('@/assets/fonts/SF-Pro-Text-Thin.otf') format('truetype');
+  font-family: 'SF-Pro-Display-Thin';
+  src: url('@/assets/fonts/SF-Pro-Display-Thin.otf') format('truetype');
   font-weight: 300;
 }
 
 @font-face {
-  font-family: 'SF-Pro-Text-Regular';
-  src: url('@/assets/fonts/SF-Pro-Text-Regular.otf') format('truetype');
+  font-family: 'SF-Pro-Display-Regular';
+  src: url('@/assets/fonts/SF-Pro-Display-Regular.otf') format('truetype');
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'SF-Pro-Text-Medium';
-  src: url('@/assets/fonts/SF-Pro-Text-Medium.otf') format('truetype');
+  font-family: 'SF-Pro-Display-Medium';
+  src: url('@/assets/fonts/SF-Pro-Display-Medium.otf') format('truetype');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: 'SF-Pro-Text-Bold';
-  src: url('@/assets/fonts/SF-Pro-Text-Bold.otf') format('truetype');
+  font-family: 'SF-Pro-Display-Bold';
+  src: url('@/assets/fonts/SF-Pro-Display-Bold.otf') format('truetype');
   font-weight: 700;
 }
 
 @font-face {
-  font-family: 'SF-Pro-Text-Black';
-  src: url('@/assets/fonts/SF-Pro-Text-Black.otf') format('truetype');
+  font-family: 'SF-Pro-Display-Black';
+  src: url('@/assets/fonts/SF-Pro-Display-Black.otf') format('truetype');
   font-weight: 900;
 }
 
