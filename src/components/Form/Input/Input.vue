@@ -1,10 +1,68 @@
 <template>
-  <div class="form__group">
-    <label class="form__label" for="input-amount">Montante</label>
-    <input class="form__input" type="number" id="input-amount" />
+  <div class="input">
+    <div class="input__header">
+      <label class="input__label" for="input-amount">Montante</label>
+    </div>
+    <div class="input__body">
+      <button class="input__toggle">
+        <img src="@/assets/images/unlock.svg" />
+      </button>
+      <div class="input__icon">
+        <img src="@/assets/images/money.svg" />
+      </div>
+      <input class="input__field" type="number" id="input-amount" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .input {
+    display: flex;
+    flex-direction: column;
+    gap: $g-4;
+
+    &__label {
+      font-weight: 500;
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    &__toggle {
+      background-color: $border;
+      box-shadow: $shadow;
+      height: 24px;
+      border: 0;
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+      padding: $p-4;
+    }
+
+    &__icon {
+      background-color: $border;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    &__field {
+      background-color: transparent;
+      width: 100%;
+      font-size: $fs-14;
+      font-weight: 500;
+      border: 1px solid $border;
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      padding: $p-8;
+    }
+  }
+</style>
