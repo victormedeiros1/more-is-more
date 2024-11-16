@@ -1,6 +1,8 @@
 <template>
-  <h1>Calculadora de investimentos</h1>
-  <Form />
+  <div class="calculator">
+    <h1>Calculadora de investimentos</h1>
+    <Form />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -8,15 +10,10 @@
 </script>
 
 <style scoped lang="scss">
-  .calculadora {
+  .calculator {
     display: flex;
     flex-direction: column;
-    gap: $g-16;
     width: 100%;
-    height: 300px;
-    background-color: $gray-50;
-    border-radius: 0.5rem;
-    border: 1px solid $gray-200;
-    padding: $p-24;
+    max-width: 840px;
   }
 </style>
