@@ -27,22 +27,4 @@
   })
 </script>
 
-<style scoped lang="scss">
-  .form {
-    &__group {
-      margin-bottom: $p-16;
-    }
-
-    &__label {
-      display: block;
-      margin-bottom: $p-8;
-    }
-
-    &__input {
-      width: 100%;
-      padding: $p-8;
-      border-radius: 0.5rem;
-      border: 1px solid $gray-200;
-    }
-  }
-</style>
+<style scoped lang="scss"></style>
