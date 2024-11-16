@@ -34,7 +34,7 @@
     }
 
     &__toggle {
-      background-color: $border;
+      background-color: $primary--main;
       box-shadow: $shadow;
       height: 24px;
       border: 0;
@@ -44,7 +44,7 @@
     }
 
     &__icon {
-      background-color: $border;
+      background-color: $primary--main;
       width: 34px;
       height: 34px;
       display: flex;
@@ -59,10 +59,14 @@
       width: 100%;
       font-size: $fs-14;
       font-weight: 500;
-      border: 1px solid $border;
+      border: 1px solid $primary--main;
       border-top-right-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
       padding: $p-8;
+
+      &::placeholder {
+        color: $primary--light;
+      }
     }
   }
 </style>
