@@ -1,7 +1,26 @@
 <template>
   <div class="form">
     <div class="form__group">
-      <Input />
+      <Input
+        id="input-amount"
+        label="Montante"
+        variant="amount"
+        type="number"
+      />
+    </div>
+    <div class="form__group">
+      <Input id="input-rate" label="Juros" variant="rate" type="number" />
+    </div>
+    <div class="form__group">
+      <Input id="input-months" label="Meses" variant="months" type="number" />
+    </div>
+    <div class="form__group">
+      <Input
+        id="input-contribution"
+        label="Aporte"
+        variant="contribution"
+        type="number"
+      />
     </div>
   </div>
 </template>
@@ -27,4 +46,12 @@
   })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .form {
+    width: 100%;
+    max-width: 500px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $g-16;
+  }
+</style>

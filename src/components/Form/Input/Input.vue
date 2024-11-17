@@ -1,21 +1,47 @@
 <template>
   <div class="input">
     <div class="input__header">
-      <label class="input__label" for="input-amount">Montante</label>
+      <label class="input__label" :for="id">{{ label }}</label>
     </div>
     <div class="input__body">
       <button class="input__toggle">
         <img src="@/assets/images/unlock.svg" />
       </button>
       <div class="input__icon">
-        <img src="@/assets/images/money.svg" />
+        <img :src="inputIcon[variant].icon" />
       </div>
-      <input class="input__field" type="number" id="input-amount" />
+      <input :id="id" class="input__field" :type="type" />
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { InputVariants } from '@/types'
+
+  interface Props {
+    id: string
+    label: string
+    variant: InputVariants
+    type: 'number'
+  }
+
+  defineProps<Props>()
+
+  const inputIcon = {
+    amount: {
+      icon: '/src/assets/images/money.svg'
+    },
+    rate: {
+      icon: '/src/assets/images/rate.svg'
+    },
+    months: {
+      icon: '/src/assets/images/calendar.svg'
+    },
+    contribution: {
+      icon: '/src/assets/images/money.svg'
+    }
+  }
+</script>
 
 <style lang="scss" scoped>
   .input {
