@@ -11,9 +11,11 @@
 
 <style scoped lang="scss">
   .calculator {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     max-width: 840px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 </style>

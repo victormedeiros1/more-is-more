@@ -78,6 +78,7 @@
       justify-content: center;
       border-top-left-radius: 0.25rem;
       border-bottom-left-radius: 0.25rem;
+      padding: 0.4375rem;
     }
 
     &__field {
