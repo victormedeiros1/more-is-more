@@ -1,9 +1,22 @@
 <template>
   <div class="calculator">
-    <h1>Calculadora de investimentos</h1>
-    <Form />
-    <Button>CALCULAR</Button>
+    <div class="calculator__header">
+      <h1>Calculadora de investimentos</h1>
+    </div>
+
+    <div class="calculator__body">
+      <Form />
+      <Button>CALCULAR</Button>
+    </div>
+
     <Divider />
+
+    <div class="calculator__footer">
+      <div class="phrase">
+        <p class="phrase__text">“Quanto mais você tiver, mais você terá”</p>
+        <span class="phrase__author">- por aí, Alguém</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,5 +35,17 @@
     justify-content: center;
     align-items: center;
     gap: $g-24;
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: $g-24;
+    }
+
+    .phrase {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+    }
   }
 </style>

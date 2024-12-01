@@ -10,5 +10,6 @@
     max-width: 600px;
     height: 1px;
     background-color: $primary--main;
+    margin: $m-8 0;
   }
 </style>
