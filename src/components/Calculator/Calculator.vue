@@ -1,6 +1,7 @@
 <template>
   <div class="calculator">
     <div class="calculator__header">
+      <img src="@/assets/images/logo.svg" />
       <h1>Calculadora de investimentos</h1>
     </div>
 
@@ -35,6 +36,13 @@
     justify-content: center;
     align-items: center;
     gap: $g-24;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $g-24;
+    }
 
     &__body {
       display: flex;
