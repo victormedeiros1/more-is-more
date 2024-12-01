@@ -34,7 +34,8 @@
 
 <style lang="scss" scoped>
   .tooltip {
-    width: fit-content;
+    width: 1rem;
+    height: 1rem;
     white-space: nowrap;
     position: relative;
 
