@@ -9,7 +9,13 @@
       />
     </div>
     <div class="form__group">
-      <Input id="input-rate" label="Juros" variant="rate" type="number" />
+      <Input
+        id="input-rate"
+        label="Juros"
+        variant="rate"
+        type="number"
+        :tooltip-message="`Selic agora: ${selic}%`"
+      />
     </div>
     <div class="form__group">
       <Input id="input-months" label="Meses" variant="months" type="number" />

@@ -2,6 +2,7 @@
   <div class="input">
     <div class="input__header">
       <label class="input__label" :for="id">{{ label }}</label>
+      <Tooltip v-if="tooltipMessage" :message="tooltipMessage" />
     </div>
     <div class="input__body">
       <button class="input__toggle">
@@ -16,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+  import Tooltip from '@/components/Tooltip/Tooltip.vue'
+
   import { InputVariants } from '@/types'
 
   interface Props {
@@ -23,6 +26,7 @@
     label: string
     variant: InputVariants
     type: 'number'
+    tooltipMessage?: string
   }
 
   defineProps<Props>()
@@ -48,6 +52,12 @@
     display: flex;
     flex-direction: column;
     gap: $g-4;
+
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: $g-4;
+    }
 
     &__label {
       font-weight: 500;
