@@ -5,18 +5,27 @@
       <Tooltip v-if="tooltipMessage" :message="tooltipMessage" />
     </div>
     <div class="input__body">
-      <button class="input__toggle">
-        <img src="@/assets/images/unlock.svg" />
+      <button class="input__toggle" @click="toggleLock">
+        <img v-if="isLocked" src="@/assets/images/lock.svg" />
+        <img v-else src="@/assets/images/unlock.svg" />
       </button>
       <div class="input__icon">
         <img :src="inputIcon[variant].icon" />
       </div>
-      <input :id="id" class="input__field" :type="type" />
+      <input
+        :id="id"
+        class="input__field"
+        :class="isLocked ? 'input__field--disabled' : ''"
+        :type="type"
+        :disabled="isLocked"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { ref } from 'vue'
+
   import Tooltip from '@/components/Tooltip/Tooltip.vue'
 
   import { InputVariants } from '@/types'
@@ -45,6 +54,12 @@
       icon: '/src/assets/images/money.svg'
     }
   }
+
+  const isLocked = ref<boolean>(false)
+
+  const toggleLock = (): void => {
+    isLocked.value = !isLocked.value
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -70,6 +85,7 @@
     }
 
     &__toggle {
+      cursor: pointer;
       background-color: $primary--main;
       box-shadow: $shadow;
       height: 24px;
@@ -77,6 +93,10 @@
       border-top-left-radius: 0.25rem;
       border-bottom-left-radius: 0.25rem;
       padding: $p-4;
+
+      &:hover {
+        background-color: $primary--dark;
+      }
     }
 
     &__icon {
@@ -103,6 +123,10 @@
 
       &::placeholder {
         color: $primary--light;
+      }
+
+      &--disabled {
+        opacity: 0.3;
       }
     }
   }

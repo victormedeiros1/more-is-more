@@ -1,8 +1,8 @@
 <template>
   <div
     class="tooltip"
-    :onmouseenter="toggleTooltipView"
-    :onmouseleave="toggleTooltipView"
+    @mouseenter="toggleTooltipView"
+    @mouseleave="toggleTooltipView"
   >
     <div class="tooltip__icon">
       <img src="@/assets/images/tooltip.svg" />
