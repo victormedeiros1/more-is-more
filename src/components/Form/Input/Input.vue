@@ -18,6 +18,7 @@
         :class="isLocked ? 'input__field--disabled' : ''"
         :type="type"
         :disabled="isLocked"
+        @input="emitValue"
       />
     </div>
   </div>
@@ -40,6 +41,10 @@
 
   defineProps<Props>()
 
+  const emit = defineEmits<{
+    (event: 'update:modelValue', value: number): void
+  }>()
+
   const inputIcon = {
     amount: {
       icon: '/src/assets/images/money.svg'
@@ -59,6 +64,11 @@
 
   const toggleLock = (): void => {
     isLocked.value = !isLocked.value
+  }
+
+  const emitValue = (event: Event): void => {
+    const target = event.target as HTMLInputElement
+    emit('update:modelValue', Number(target.value))
   }
 </script>
 

@@ -6,6 +6,7 @@
         label="Montante"
         variant="amount"
         type="number"
+        v-model:model-value="form.amount"
       />
     </div>
     <div class="form__group">
@@ -15,10 +16,17 @@
         variant="rate"
         type="number"
         :tooltip-message="`Selic agora: ${selic}%`"
+        v-model:model-value="form.rate"
       />
     </div>
     <div class="form__group">
-      <Input id="input-months" label="Meses" variant="months" type="number" />
+      <Input
+        id="input-months"
+        label="Meses"
+        variant="months"
+        type="number"
+        v-model:model-value="form.months"
+      />
     </div>
     <div class="form__group">
       <Input
@@ -26,6 +34,7 @@
         label="Aporte"
         variant="contribution"
         type="number"
+        v-model:model-value="form.contribution"
       />
     </div>
   </div>
@@ -35,6 +44,8 @@
   import { onMounted, ref } from 'vue'
 
   import Input from '@/components/Form/Input/Input.vue'
+
+  import { FormCalculator } from '@/types'
 
   const selic = ref<number>(0)
 
@@ -46,13 +57,19 @@
     selic.value = Number(response[0].valor)
   }
 
+  const form = ref<FormCalculator>({
+    amount: 0,
+    rate: 0,
+    months: 0,
+    contribution: 0
+  })
+
   onMounted(async () => {
     await getSelic()
-    console.log(selic.value)
   })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .form {
     width: 100%;
     max-width: 500px;

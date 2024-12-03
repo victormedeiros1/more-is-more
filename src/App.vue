@@ -10,3 +10,5 @@
 </script>
 
 <style scoped lang="scss"></style>
+
+// TODO BUG LOCK INPUT ALTERNATE ICONS // TODO FONTS DIFFERENT FIGMA

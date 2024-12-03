@@ -6,7 +6,7 @@
 
 <script setup lang="ts"></script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .container {
     display: flex;
     justify-content: center;
