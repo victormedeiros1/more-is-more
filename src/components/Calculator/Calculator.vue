@@ -7,7 +7,6 @@
 
     <div class="calculator__body">
       <Form />
-      <Button>CALCULAR</Button>
     </div>
 
     <Divider />
@@ -22,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-  import Button from '@/components/Button/Button.vue'
   import Divider from '@/components/Divider/Divider.vue'
   import Form from '@/components/Form/Form.vue'
 </script>

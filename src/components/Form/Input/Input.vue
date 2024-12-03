@@ -6,7 +6,7 @@
     </div>
     <div class="input__body">
       <button class="input__toggle" @click="toggleLock">
-        <img v-if="isLocked" src="@/assets/images/lock.svg" />
+        <img v-if="thisInputIsLocked" src="@/assets/images/lock.svg" />
         <img v-else src="@/assets/images/unlock.svg" />
       </button>
       <div class="input__icon">
@@ -15,9 +15,9 @@
       <input
         :id="id"
         class="input__field"
-        :class="isLocked ? 'input__field--disabled' : ''"
+        :class="thisInputIsLocked ? 'input__field--disabled' : ''"
         :type="type"
-        :disabled="isLocked"
+        :disabled="thisInputIsLocked"
         @input="emitValue"
       />
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { computed } from 'vue'
 
   import Tooltip from '@/components/Tooltip/Tooltip.vue'
 
@@ -37,11 +37,13 @@
     variant: InputVariants
     type: 'number'
     tooltipMessage?: string
+    inputLocked: string
   }
 
-  defineProps<Props>()
+  const props = defineProps<Props>()
 
   const emit = defineEmits<{
+    (event: 'update:inputLocked', value: string): void
     (event: 'update:modelValue', value: number): void
   }>()
 
@@ -60,10 +62,19 @@
     }
   }
 
-  const isLocked = ref<boolean>(false)
+  const isLocked = computed({
+    get: (): string => props.inputLocked,
+    set: (value: string): void => {
+      console.log('value', value)
+      emit('update:inputLocked', value)
+    }
+  })
+
+  const thisInputIsLocked = computed(() => isLocked.value === props.id)
 
   const toggleLock = (): void => {
-    isLocked.value = !isLocked.value
+    console.log('toggleLock', props.id)
+    isLocked.value = props.id
   }
 
   const emitValue = (event: Event): void => {
