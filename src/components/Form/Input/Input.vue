@@ -64,16 +64,12 @@
 
   const isLocked = computed({
     get: (): string => props.inputLocked,
-    set: (value: string): void => {
-      console.log('value', value)
-      emit('update:inputLocked', value)
-    }
+    set: (value: string): void => emit('update:inputLocked', value)
   })
 
   const thisInputIsLocked = computed(() => isLocked.value === props.id)
 
   const toggleLock = (): void => {
-    console.log('toggleLock', props.id)
     isLocked.value = props.id
   }
 
