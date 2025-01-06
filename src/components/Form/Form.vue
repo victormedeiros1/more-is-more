@@ -18,7 +18,7 @@
           label="Juros"
           variant="rate"
           type="number"
-          :tooltip-message="`Selic agora: ${selic}%`"
+          :tooltip-message="`Selic agora: ${selic}`"
           v-model:input-locked="formValues.inputLocked"
           v-model:model-value="formValues.rate"
         />
@@ -62,7 +62,7 @@
     (event: 'update:message', value: string): void
   }>()
 
-  const selic = ref<number>(0)
+  const selic = ref<number | string>(0)
 
   const formValues = ref<FormCalculator>({
     amount: 0,
@@ -72,12 +72,16 @@
     inputLocked: 'input-amount'
   })
 
-  const getSelic = async () => {
+  const getSelic = async (): Promise<void> => {
     const url =
       'https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json'
 
-    const response = await fetch(url).then((response) => response.json())
-    selic.value = Number(response[0].valor)
+    try {
+      const response = await fetch(url).then((response) => response.json())
+      selic.value = Number(response[0].valor)
+    } catch {
+      selic.value = 'não possível receber o valor atual da Selic'
+    }
   }
 
   const calculateAmount = ({ rate, months, contribution }: FormCalculator) => {
