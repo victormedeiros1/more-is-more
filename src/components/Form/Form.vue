@@ -60,14 +60,6 @@
 
   const selic = ref<number>(0)
 
-  const getSelic = async () => {
-    const url =
-      'https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json'
-
-    const response = await fetch(url).then((response) => response.json())
-    selic.value = Number(response[0].valor)
-  }
-
   const formValues = ref<FormCalculator>({
     amount: 0,
     rate: 0,
@@ -76,31 +68,41 @@
     inputLocked: 'input-amount'
   })
 
+  const getSelic = async () => {
+    const url =
+      'https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json'
+
+    const response = await fetch(url).then((response) => response.json())
+    selic.value = Number(response[0].valor)
+  }
+
   const calculateAmount = ({ rate, months, contribution }: FormCalculator) => {
     const monthlyRate = rate / 12 / 100
     let currentAmount = 0
-
     for (let i = 0; i < months; i++) {
       currentAmount = currentAmount * (1 + monthlyRate) + contribution
     }
-
     return currentAmount
   }
 
   const calculateRate = ({ amount, months, contribution }: FormCalculator) => {
+    let low = 0
+    let high = 100
+    let tolerance = 0.0001
     let rate = 0
-    let monthlyRate = 0
-    let currentAmount = 0
-
-    while (currentAmount < amount) {
-      rate += 0.01
-      monthlyRate = rate / 12 / 100
-      currentAmount = 0
+    while (high - low > tolerance) {
+      rate = (low + high) / 2
+      const monthlyRate = rate / 12 / 100
+      let currentAmount = 0
       for (let i = 0; i < months; i++) {
         currentAmount = currentAmount * (1 + monthlyRate) + contribution
       }
+      if (currentAmount < amount) {
+        low = rate
+      } else {
+        high = rate
+      }
     }
-
     return rate
   }
 
@@ -108,38 +110,49 @@
     const monthlyRate = rate / 12 / 100
     let currentAmount = 0
     let months = 0
-
     while (currentAmount < amount) {
       currentAmount = currentAmount * (1 + monthlyRate) + contribution
       months++
     }
-
     return months
   }
 
   const calculateContribution = ({ amount, rate, months }: FormCalculator) => {
     const monthlyRate = rate / 12 / 100
+    let contribution = amount / months
     let currentAmount = 0
-    let contribution = 0
-
-    for (let i = 0; i < months; i++) {
-      currentAmount = currentAmount * (1 + monthlyRate) + contribution
+    let tolerance = 0.01
+    while (true) {
+      currentAmount = 0
+      for (let i = 0; i < months; i++) {
+        currentAmount = currentAmount * (1 + monthlyRate) + contribution
+      }
+      if (Math.abs(currentAmount - amount) <= tolerance) {
+        break
+      }
+      contribution += (amount - currentAmount) / months
     }
-
-    contribution = (amount - currentAmount) / months
-
     return contribution
   }
 
-  const calculationFunctions = {
-    'input-amount': () => calculateAmount(formValues.value),
-    'input-rate': () => calculateRate(formValues.value),
-    'input-months': () => calculateMonths(formValues.value),
-    'input-contribution': () => calculateContribution(formValues.value)
+  const chooseMessage = (key: string): string => {
+    const values = formValues.value
+    switch (key) {
+      case 'input-amount':
+        return `Com aportes de R$${values.contribution} durante ${values.months} meses, com juros de ${values.rate}% ao ano, você terá R$${calculateAmount(values).toFixed(2)}`
+      case 'input-rate':
+        return `Para atingir R$${values.amount} com aportes de R$${values.contribution} durante ${values.months} meses, você precisa de uma taxa de juros de ${calculateRate(values).toFixed(2)}% ao ano`
+      case 'input-months':
+        return `Com aportes de R$${values.contribution} e juros de ${values.rate}% ao ano, você precisará de ${calculateMonths(values)} meses para atingir R$${values.amount}`
+      case 'input-contribution':
+        return `Para atingir R$${values.amount} com juros de ${values.rate}% ao ano em ${values.months} meses, você precisará fazer aportes de R$${calculateContribution(values).toFixed(2)}`
+      default:
+        return 'Entrada inválida'
+    }
   }
 
   const calculate = () => {
-    console.log(calculationFunctions[formValues.value.inputLocked]())
+    console.log(chooseMessage(formValues.value.inputLocked))
   }
 
   onMounted(async () => {
@@ -154,8 +167,7 @@
     display: flex;
     flex-direction: column;
     gap: $g-24;
-
-    &__body {
+    s &__body {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: $g-16;
