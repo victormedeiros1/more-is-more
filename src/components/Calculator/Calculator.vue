@@ -3,10 +3,11 @@
     <div class="calculator__header">
       <img src="@/assets/images/logo.svg" />
       <h1>Calculadora de investimentos</h1>
+      <h2>{{ message }}</h2>
     </div>
 
     <div class="calculator__body">
-      <Form />
+      <Form v-model:message="message" />
     </div>
 
     <Divider />
@@ -21,8 +22,12 @@
 </template>
 
 <script setup lang="ts">
+  import { ref } from 'vue'
+
   import Divider from '@/components/Divider/Divider.vue'
   import Form from '@/components/Form/Form.vue'
+
+  const message = ref<string>('')
 </script>
 
 <style scoped lang="scss">

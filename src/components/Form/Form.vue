@@ -58,6 +58,10 @@
 
   import { FormCalculator } from '@/types'
 
+  const emit = defineEmits<{
+    (event: 'update:message', value: string): void
+  }>()
+
   const selic = ref<number>(0)
 
   const formValues = ref<FormCalculator>({
@@ -151,8 +155,12 @@
     }
   }
 
-  const calculate = () => {
-    console.log(chooseMessage(formValues.value.inputLocked))
+  const emitMessage = (): void => {
+    emit('update:message', chooseMessage(formValues.value.inputLocked))
+  }
+
+  const calculate = (): void => {
+    emitMessage()
   }
 
   onMounted(async () => {
