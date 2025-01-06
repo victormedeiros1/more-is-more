@@ -147,13 +147,13 @@
     const values = formValues.value
     switch (key) {
       case 'input-amount':
-        return `Com aportes de R$${values.contribution} durante ${values.months} meses, com juros de ${values.rate}% ao ano, você terá R$${calculateAmount(values).toFixed(2)}`
+        return `Montante de R$${calculateAmount(values).toFixed(2)} de Com aportes de R$${values.contribution} durante ${values.months} meses, com juros de ${values.rate}% ao ano, você terá R$${calculateAmount(values).toFixed(2)}`
       case 'input-rate':
-        return `Para atingir R$${values.amount} com aportes de R$${values.contribution} durante ${values.months} meses, você precisa de uma taxa de juros de ${calculateRate(values).toFixed(2)}% ao ano`
+        return `Juros de ${calculateRate(values).toFixed(2)}% ao ano. Para atingir R$${values.amount} com aportes de R$${values.contribution} durante ${values.months} meses, você precisa de uma taxa de juros de ${calculateRate(values).toFixed(2)}% ao ano`
       case 'input-months':
-        return `Com aportes de R$${values.contribution} e juros de ${values.rate}% ao ano, você precisará de ${calculateMonths(values)} meses para atingir R$${values.amount}`
+        return `${calculateMonths(values)} meses. Com aportes de R$${values.contribution} e juros de ${values.rate}% ao ano, você precisará de ${calculateMonths(values)} meses para atingir R$${values.amount}`
       case 'input-contribution':
-        return `Para atingir R$${values.amount} com juros de ${values.rate}% ao ano em ${values.months} meses, você precisará fazer aportes de R$${calculateContribution(values).toFixed(2)}`
+        return `Aportes de R$${calculateContribution(values).toFixed(2)}. Para atingir R$${values.amount} com juros de ${values.rate}% ao ano em ${values.months} meses, você precisará fazer aportes de R$${calculateContribution(values).toFixed(2)}`
       default:
         return 'Entrada inválida'
     }

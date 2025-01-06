@@ -2,8 +2,8 @@
   <div class="calculator">
     <div class="calculator__header">
       <img src="@/assets/images/logo.svg" />
-      <h1>Calculadora de investimentos</h1>
-      <h2>{{ message }}</h2>
+      <h1 class="calculator__title">Calculadora de investimentos</h1>
+      <h2 class="calculator__subtitle">{{ message }}</h2>
     </div>
 
     <div class="calculator__body">
@@ -27,7 +27,9 @@
   import Divider from '@/components/Divider/Divider.vue'
   import Form from '@/components/Form/Form.vue'
 
-  const message = ref<string>('')
+  const message = ref<string>(
+    'Trave o campo que deseja descobrir o valor e insira os outros valores.'
+  )
 </script>
 
 <style scoped lang="scss">
@@ -44,13 +46,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
       gap: $g-24;
     }
 
     &__body {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: $g-24;
+
+      @media screen and (max-width: $sm) {
+        width: 100%;
+      }
+    }
+
+    &__title {
+      font-size: $fs-40;
+
+      @media screen and (max-width: $sm) {
+        font-size: $fs-32;
+      }
+    }
+
+    &__subtitle {
+      font-size: $fs-20;
+      font-weight: 400;
+      height: 60px;
+
+      @media screen and (max-width: $sm) {
+        font-size: $fs-16;
+      }
     }
 
     .phrase {
