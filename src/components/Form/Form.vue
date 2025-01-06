@@ -14,13 +14,13 @@
       </div>
       <div class="form__group">
         <Input
-          id="input-rate"
+          id="input-fees"
           label="Juros"
-          variant="rate"
+          variant="fees"
           type="number"
           :tooltip-message="`Selic agora: ${selic}`"
           v-model:input-locked="formValues.inputLocked"
-          v-model:model-value="formValues.rate"
+          v-model:model-value="formValues.fees"
         />
       </div>
       <div class="form__group">
@@ -66,7 +66,7 @@
 
   const formValues = ref<FormCalculator>({
     amount: 0,
-    rate: 0,
+    fees: 0,
     months: 0,
     contribution: 0,
     inputLocked: 'input-amount'
@@ -84,56 +84,56 @@
     }
   }
 
-  const calculateAmount = ({ rate, months, contribution }: FormCalculator) => {
-    const monthlyRate = rate / 12 / 100
+  const calculateAmount = ({ fees, months, contribution }: FormCalculator) => {
+    const monthlyFees = fees / 12 / 100
     let currentAmount = 0
     for (let i = 0; i < months; i++) {
-      currentAmount = currentAmount * (1 + monthlyRate) + contribution
+      currentAmount = currentAmount * (1 + monthlyFees) + contribution
     }
     return currentAmount
   }
 
-  const calculateRate = ({ amount, months, contribution }: FormCalculator) => {
+  const calculateFees = ({ amount, months, contribution }: FormCalculator) => {
     let low = 0
     let high = 100
     let tolerance = 0.0001
-    let rate = 0
+    let fees = 0
     while (high - low > tolerance) {
-      rate = (low + high) / 2
-      const monthlyRate = rate / 12 / 100
+      fees = (low + high) / 2
+      const monthlyFees = fees / 12 / 100
       let currentAmount = 0
       for (let i = 0; i < months; i++) {
-        currentAmount = currentAmount * (1 + monthlyRate) + contribution
+        currentAmount = currentAmount * (1 + monthlyFees) + contribution
       }
       if (currentAmount < amount) {
-        low = rate
+        low = fees
       } else {
-        high = rate
+        high = fees
       }
     }
-    return rate
+    return fees
   }
 
-  const calculateMonths = ({ amount, rate, contribution }: FormCalculator) => {
-    const monthlyRate = rate / 12 / 100
+  const calculateMonths = ({ amount, fees, contribution }: FormCalculator) => {
+    const monthlyFees = fees / 12 / 100
     let currentAmount = 0
     let months = 0
     while (currentAmount < amount) {
-      currentAmount = currentAmount * (1 + monthlyRate) + contribution
+      currentAmount = currentAmount * (1 + monthlyFees) + contribution
       months++
     }
     return months
   }
 
-  const calculateContribution = ({ amount, rate, months }: FormCalculator) => {
-    const monthlyRate = rate / 12 / 100
+  const calculateContribution = ({ amount, fees, months }: FormCalculator) => {
+    const monthlyFees = fees / 12 / 100
     let contribution = amount / months
     let currentAmount = 0
     let tolerance = 0.01
     while (true) {
       currentAmount = 0
       for (let i = 0; i < months; i++) {
-        currentAmount = currentAmount * (1 + monthlyRate) + contribution
+        currentAmount = currentAmount * (1 + monthlyFees) + contribution
       }
       if (Math.abs(currentAmount - amount) <= tolerance) {
         break
@@ -147,13 +147,13 @@
     const values = formValues.value
     switch (key) {
       case 'input-amount':
-        return `Montante de R$${calculateAmount(values).toFixed(2)} de Com aportes de R$${values.contribution} durante ${values.months} meses, com juros de ${values.rate}% ao ano, você terá R$${calculateAmount(values).toFixed(2)}`
-      case 'input-rate':
-        return `Juros de ${calculateRate(values).toFixed(2)}% ao ano. Para atingir R$${values.amount} com aportes de R$${values.contribution} durante ${values.months} meses, você precisa de uma taxa de juros de ${calculateRate(values).toFixed(2)}% ao ano`
+        return `Montante de R$${calculateAmount(values).toFixed(2)} de Com aportes de R$${values.contribution} durante ${values.months} meses, com juros de ${values.fees}% ao ano, você terá R$${calculateAmount(values).toFixed(2)}`
+      case 'input-fees':
+        return `Juros de ${calculateFees(values).toFixed(2)}% ao ano. Para atingir R$${values.amount} com aportes de R$${values.contribution} durante ${values.months} meses, você precisa de uma taxa de juros de ${calculateFees(values).toFixed(2)}% ao ano`
       case 'input-months':
-        return `${calculateMonths(values)} meses. Com aportes de R$${values.contribution} e juros de ${values.rate}% ao ano, você precisará de ${calculateMonths(values)} meses para atingir R$${values.amount}`
+        return `${calculateMonths(values)} meses. Com aportes de R$${values.contribution} e juros de ${values.fees}% ao ano, você precisará de ${calculateMonths(values)} meses para atingir R$${values.amount}`
       case 'input-contribution':
-        return `Aportes de R$${calculateContribution(values).toFixed(2)}. Para atingir R$${values.amount} com juros de ${values.rate}% ao ano em ${values.months} meses, você precisará fazer aportes de R$${calculateContribution(values).toFixed(2)}`
+        return `Aportes de R$${calculateContribution(values).toFixed(2)}. Para atingir R$${values.amount} com juros de ${values.fees}% ao ano em ${values.months} meses, você precisará fazer aportes de R$${calculateContribution(values).toFixed(2)}`
       default:
         return 'Entrada inválida'
     }

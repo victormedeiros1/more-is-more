@@ -1,19 +1,13 @@
-export type InputVariants = 'amount' | 'rate' | 'months' | 'contribution'
+export type InputVariants = 'amount' | 'fees' | 'months' | 'contribution'
 
 export interface FormCalculator {
   amount: number
-  rate: number
+  fees: number
   months: number
   contribution: number
   inputLocked:
     | 'input-amount'
-    | 'input-rate'
+    | 'input-fees'
     | 'input-months'
     | 'input-contribution'
-}
-
-export interface CalculateMonthsProps {
-  amount: number
-  rate: number
-  contribution: number
 }

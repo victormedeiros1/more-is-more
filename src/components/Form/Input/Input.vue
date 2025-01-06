@@ -51,8 +51,8 @@
     amount: {
       icon: '/src/assets/images/money.svg'
     },
-    rate: {
-      icon: '/src/assets/images/rate.svg'
+    fees: {
+      icon: '/src/assets/images/fees.svg'
     },
     months: {
       icon: '/src/assets/images/calendar.svg'
